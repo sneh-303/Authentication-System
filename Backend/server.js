@@ -4,6 +4,10 @@ const connectDB = require('./config/db');
 dotenv.config();
 const app = express();
 const cors = require('cors');
+const multer = require('multer');
+
+
+
 connectDB();
 // middleware
 
@@ -14,6 +18,8 @@ app.use(cors({
 }));
 // Routes
 app.use('/api/auth', require('./routes/authRoute'));
+
+app.use('/uploads',express.static('uploads'))
 
 
 const PORT = process.env.PORT || 5000;

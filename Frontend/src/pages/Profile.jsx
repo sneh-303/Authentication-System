@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { fetchProfile } from "../api/axios";
 import { useNavigate } from "react-router-dom";
-import GradientBackgroundLayout from "./GradientBackgroundLayout";
-
+import GradientBackgroundLayout from "../utils/GradientBackgroundLayout";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
 const Profile = () => {
   const [profile, setProfile] = useState(null);
   const navigate = useNavigate();
-
+  const SERVER_URL = "http://localhost:5000/";
   useEffect(() => {
     const token = localStorage.getItem("token");
     const expiryTime = localStorage.getItem("tokenExpiry");
@@ -26,10 +27,10 @@ const Profile = () => {
 
     const timeoutId = setTimeout(() => {
       toast.error("Session expired");
-      toast.success("You have been redirected to the login page");
       localStorage.removeItem("token");
       localStorage.removeItem("tokenExpiry");
       navigate("/login");
+      toast.success("You have been redirected to the login page");
     }, expiryTime - Date.now());
 
     fetchProfile()
@@ -46,7 +47,7 @@ const Profile = () => {
           toast.error("Please Login First");
         }
       });
-       return () => clearTimeout(timeoutId);
+    return () => clearTimeout(timeoutId);
   }, [navigate]);
 
   if (!profile) {
@@ -64,11 +65,26 @@ const Profile = () => {
   };
   return (
     <GradientBackgroundLayout>
-    {/* <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4"> */}
+      {/* <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4"> */}
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
         <h2 className="text-3xl font-bold text-blue-700 text-center mb-6">
           User Profile
         </h2>
+        {/* logo */}
+        <div className="flex justify-center">
+          <Stack direction="row" spacing={2}>
+            <Avatar
+              alt="profile"
+              src={`${SERVER_URL}${profile.ProfilePicture}`}
+              sx={{
+                width: 100,
+                height: 100,
+                border: "3px solid #6366F1", // Tailwind's purple-600
+                borderRadius: "50%",
+              }}
+            />
+          </Stack>
+        </div>
 
         <div className="space-y-4 text-gray-700">
           <div className="flex justify-between border-b pb-2">
@@ -81,7 +97,9 @@ const Profile = () => {
           </div>
           <div className="flex justify-between">
             <span className="font-medium">User ID:</span>
-            <span className="text-xs text-gray-500">{profile.serialNumber}</span>
+            <span className="text-xs text-gray-500">
+              {profile.serialNumber}
+            </span>
           </div>
           <div className="flex justify-between">
             <button
@@ -93,7 +111,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    {/* </div> */}
+      {/* </div> */}
     </GradientBackgroundLayout>
   );
 };

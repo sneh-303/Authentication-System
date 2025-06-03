@@ -11,13 +11,25 @@
     "postinstall": "flowbite-react patch"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.1.1",
+    "@mui/material": "^7.1.1",
+    "@radix-ui/react-navigation-menu": "^1.2.13",
+    "@shadcn/ui": "^0.0.4",
+    "@tanstack/react-table": "^8.21.3",
     "axios": "^1.9.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "express-validator": "^7.2.1",
+    "flowbite": "^3.1.2",
     "flowbite-react": "^0.11.7",
     "jwt-decode": "^4.0.0",
+    "lucide-react": "^0.511.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-hot-toast": "^2.5.2"
+    "react-hot-toast": "^2.5.2",
+    "tailwind-variants": "^1.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

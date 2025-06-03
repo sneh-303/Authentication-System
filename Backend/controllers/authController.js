@@ -5,11 +5,18 @@ const User = require("../models/User");
 // Register route
 exports.register = async (req, res) => {
   const { name, email, password } = req.body;
+  if (!req.file) {
+    return res.status(400).json({ msg: "Profile picture is required" });
+  }
+  const ProfilePicture = req.file.path;
 
   try {
     // Check if user with this email exists
     let user = await User.findOne({ email });
-    if (user) return res.status(400).json({ msg: "A user already exists with this e-mail address" });
+    if (user)
+      return res
+        .status(400)
+        .json({ msg: "A user already exists with this e-mail address" });
 
     // Hash password
     const salt = await bcrypt.genSalt(10);
@@ -24,7 +31,8 @@ exports.register = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      serialNumber: newSerialNumber
+      serialNumber: newSerialNumber,
+      ProfilePicture,
     });
 
     await user.save();
@@ -49,11 +57,16 @@ exports.login = async (req, res) => {
 
     const payload = { userId: user._id };
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: '1m',
+      expiresIn: "24h",
     });
     const decoded = jwt.decode(token);
     const expiryTimeStamp = decoded?.exp;
-    console.log("Token expiration (exp):",expiryTimeStamp,"->",new Date(expiryTimeStamp * 1000)); // mutliply with 1000 means converting into ms
+    console.log(
+      "Token expiration (exp):",
+      expiryTimeStamp,
+      "->",
+      new Date(expiryTimeStamp * 1000)
+    ); // mutliply with 1000 means converting into ms
 
     res.json({ token, expiryTimeStamp });
   } catch (err) {
@@ -73,5 +86,66 @@ exports.profile = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ msg: "Server error" });
+  }
+};
+// UserList (display all users)
+exports.userList = async (req, res) => {
+  try {
+    const users = await User.find().select("-password"); // Fetch all users
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+exports.putUser = async (req, res) => {
+  try {
+    const { serialNumber } = req.params;
+    const updatedData = req.body;
+
+    const updatedUser = await User.findOneAndReplace({ serialNumber }, updatedData,{ new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ message: "PUT success", updatedUser });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Error updating user", error: err.message });
+  }
+};
+
+exports.patchUser = async (req, res) => {
+  try {
+    const { serialNumber } = req.params;
+    const updateData = req.body;
+    await User.findOneAndUpdate(
+      { serialNumber: serialNumber },
+      { $set: updateData },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "PATCH success" });
+    if (!updateData) {
+      return res.status(404).json({ message: "User not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Error deleting ", error: err.message });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const { serialNumber } = req.params;
+    await User.findOneAndDelete({ serialNumber: serialNumber });
+
+    res.status(200).json({ message: "DELETE success" });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Error Patching user", error: err.message });
   }
 };

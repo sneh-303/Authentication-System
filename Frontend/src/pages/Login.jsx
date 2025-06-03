@@ -2,7 +2,8 @@ import { useState } from "react";
 import api from '../api/axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
-import GradientBackgroundLayout from "./GradientBackgroundLayout";
+import GradientBackgroundLayout from "../utils/GradientBackgroundLayout";
+import { loginUser } from "../api/axios";
 const Login = () => {
   
   const [email, setEmail] = useState("");
@@ -13,7 +14,9 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response=await api.post("/auth/login", { email, password });
+      // const response=await api.post("/auth/login", { email, password }); // api from axios
+      const response = await loginUser({ email, password });
+
       const {token, expiryTimeStamp} = response.data;
       if(token){
         localStorage.setItem('token', token); // <-- store token her

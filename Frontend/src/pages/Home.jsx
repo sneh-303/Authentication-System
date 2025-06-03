@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import GradientBackgroundLayout from "./GradientBackgroundLayout";
+import GradientBackgroundLayout from "../utils/GradientBackgroundLayout";
 
 
 const Home = () => {

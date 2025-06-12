@@ -1,21 +1,15 @@
 # ✅ Ignore node_modules in all folders
 **/node_modules/
 
-# ✅ Ignore all .env files
+# ✅ Ignore all env files in all folders
 **/.env
 
-# ✅ Ignore log files
+# ✅ Ignore all package.json and package-lock.json files
+
+
+
+# Optional: Ignore log and build files
 *.log
-
-# ✅ Ignore Windows cache files
 Thumbs.db
-
-# ✅ Ignore React/Vite build outputs (optional but recommended)
 frontend/build/
 frontend/dist/
-
-# 🚫 Do NOT ignore these (they are important):
-**/package.json
-# package-lock.json or yarn.lock
-# public/
-# src/

@@ -122,30 +122,36 @@ exports.patchUser = async (req, res) => {
   try {
     const { serialNumber } = req.params;
     const updateData = req.body;
-    await User.findOneAndUpdate(
-      { serialNumber: serialNumber },
+
+    const updatedUser = await User.findOneAndUpdate(
+      { serialNumber },
       { $set: updateData },
-      { new: true }
+      { new: true } // ensures the updated document is returned
     );
 
-    res.status(200).json({ message: "PATCH success" });
-    if (!updateData) {
+    if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }
+
+    res.status(200).json({ message: "PATCH success", updatedUser });
   } catch (err) {
-    res.status(500).json({ message: "Error deleting ", error: err.message });
+    res.status(500).json({ message: "Error updating user", error: err.message });
   }
 };
+
 
 exports.deleteUser = async (req, res) => {
   try {
     const { serialNumber } = req.params;
-    await User.findOneAndDelete({ serialNumber: serialNumber });
 
-    res.status(200).json({ message: "DELETE success" });
+    const deletedUser = await User.findOneAndDelete({ serialNumber });
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ message: "DELETE success", deletedUser });
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Error Patching user", error: err.message });
+    res.status(500).json({ message: "Error deleting user", error: err.message });
   }
 };

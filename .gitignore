@@ -1,28 +1,21 @@
-# Env files
-.env
-frontend/.env
-backend/.env
+# ✅ Ignore node_modules in all folders
+**/node_modules/
 
-# Node modules
-node_modules/
-frontend/node_modules/
-backend/node_modules/
+# ✅ Ignore all .env files
+**/.env
 
-# Build directories
-build/
-dist/
-frontend/build/
-backend/dist/
-
-# Log files
+# ✅ Ignore log files
 *.log
-npm-debug.log*
 
-# OS / Editor files
-.DS_Store
-*.swp
-.vscode/
-.idea/
+# ✅ Ignore Windows cache files
+Thumbs.db
 
-# Optional: if using test coverage
-coverage/
+# ✅ Ignore React/Vite build outputs (optional but recommended)
+frontend/build/
+frontend/dist/
+
+# 🚫 Do NOT ignore these (they are important):
+package.json
+# package-lock.json or yarn.lock
+# public/
+# src/

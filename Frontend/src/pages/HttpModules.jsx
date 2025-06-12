@@ -377,8 +377,8 @@ const HttpModules = () => {
   const handlePost = async () => {
     try {
       const formData = new FormData();
-      formData.append("name", "a12");
-      formData.append("email", "a12@gmail.com");
+      formData.append("name", "a19");
+      formData.append("email", "a19@gmail.com");
       formData.append("password", "SNEHsneh1234@");
       formData.append("ProfilePicture", file);
 
@@ -395,13 +395,13 @@ const HttpModules = () => {
 
   const handlePut = async () => {
     try {
-      const serialNumber = "17";
+      const serialNumber = "18";
       const payload = {
-        name: "Updated User1",
-        email: "fab1@gmail.com",
+        name: "Updated User10100",
+        email: "fab101000@gmail.com",
         password: "snehSNEH1234@",
         serialNumber,
-        ProfilePicture: "https://i.imgur.com/abcd123.jpg",
+        ProfilePicture: "https://i.imgur.com/abcd124.jpg",
       };
       await api.put(`/auth/test-put/${serialNumber}`, payload);
       setSuccessMessage("PUT request completed successfully!");
@@ -413,8 +413,8 @@ const HttpModules = () => {
 
   const handlePatch = async () => {
     try {
-      const serialNumber = "17";
-      const payload = { name: "New Updated Name2" };
+      const serialNumber = "18";
+      const payload = { name: "New Updated Name60" };
       await api.patch(`/auth/test-patch/${serialNumber}`, payload);
       setSuccessMessage("PATCH request completed successfully!");
       handleOpen();
@@ -425,7 +425,7 @@ const HttpModules = () => {
 
   const handleDelete = async () => {
     try {
-      const serialNumber = "5";
+      const serialNumber = "18";
       await api.delete(`/auth/test-delete/${serialNumber}`);
       setSuccessMessage("DELETE request completed successfully!");
       handleOpen();

@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import GradientBackgroundLayout from "../utils/GradientBackgroundLayout";
 import { Eye, EyeOff } from "lucide-react";
-;
+import FileUploadButton from "../utils/FileUploadButton";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -176,6 +176,7 @@ const Register = () => {
               disabled={loading}
               className="w-full rounded-xl border px-5 py-3 placeholder-gray-400 focus:outline-none focus:ring-4 transition"
             />
+             {/* <FileUploadButton id="ProfilePicture" ={(e) => setFiles(e.target.files[0])}/> */}
           </div>
 
           {/* Password */}

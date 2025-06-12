@@ -15,7 +15,7 @@ frontend/build/
 frontend/dist/
 
 # 🚫 Do NOT ignore these (they are important):
-package.json
+**/package.json
 # package-lock.json or yarn.lock
 # public/
 # src/

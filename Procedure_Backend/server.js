@@ -1,0 +1,32 @@
+const express = require("express");
+const dotenv = require("dotenv");
+
+const cors = require("cors");
+const pool = require("./config/db");
+dotenv.config();
+const app = express();
+
+// Middleware
+app.use(express.json());
+app.use(cors({ origin: "http://localhost:5173" }));
+
+// Static route for image uploads
+app.use("/uploads", express.static("uploads"));
+
+// Auth routes
+app.use("/api/auth", require("./routes/authRoute"));
+
+// DB test connection
+pool.getConnection((err) => {
+    if (err) throw err;
+    console.log('Connected to the MySQL server.');
+});
+
+
+
+// Start server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+
+

@@ -11,7 +11,7 @@ const { UpdateEveryTime, AllData } = require('./Cron-Schedule/CronSchedule');
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "https://authentication-system-puce.vercel.app/" }));
 
 // Static route for image uploads
 app.use("/uploads", express.static("uploads"));
@@ -29,7 +29,7 @@ UpdateEveryTime();
 AllData();
 
 // Start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 13628;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 

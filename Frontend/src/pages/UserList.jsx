@@ -16,7 +16,7 @@ const UserList = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const USERS_PER_PAGE = 4;
-  const SERVER_URL = "http://localhost:5000/";
+  const SERVER_URL = "https://authentication-system-2-mzwa.onrender.com/";
 
   const tableRef = useRef(null);
   const rowsRef = useRef([]);

@@ -8,7 +8,7 @@ import Stack from "@mui/material/Stack";
 const Profile = () => {
   const [profile, setProfile] = useState(null);
   const navigate = useNavigate();
-  const SERVER_URL = "http://localhost:5000/";
+  const SERVER_URL = "https://authentication-system-2-mzwa.onrender.com/";
   useEffect(() => {
     const token = localStorage.getItem("token");
     const expiryTime = localStorage.getItem("tokenExpiry");

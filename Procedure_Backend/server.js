@@ -21,7 +21,7 @@ app.use(cors({
 
 
 // Static route for image uploads
-app.use("/uploads", express.static("uploads"));
+// app.use("/uploads", express.static("uploads"));
 
 // Auth routes
 app.use("/api/auth", require("./routes/authRoute"));

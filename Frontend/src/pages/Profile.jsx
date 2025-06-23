@@ -10,7 +10,9 @@ const Profile = () => {
   const navigate = useNavigate();
   // const SERVER_URL = "https://authentication-system-3-y5zg.onrender.com/api/auth/";
   // const SERVER_URL = `${import.meta.env.VITE_BACKEND_URL}`;
-  const SERVER_URL = `https://authentication-system-3-y5zg.onrender.com`;
+  // const SERVER_URL = `https://authentication-system-3-y5zg.onrender.com`;
+  const SERVER_URL = import.meta.env.VITE_BACKEND_URL;
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     const expiryTime = localStorage.getItem("tokenExpiry");

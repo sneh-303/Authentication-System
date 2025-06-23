@@ -16,7 +16,7 @@ const UserList = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const USERS_PER_PAGE = 4;
-  const SERVER_URL = "https://authentication-system-3-y5zg.onrender.com/";
+  const SERVER_URL = "https://authentication-system-3-y5zg.onrender.com/api/auth/";
 
   const tableRef = useRef(null);
   const rowsRef = useRef([]);

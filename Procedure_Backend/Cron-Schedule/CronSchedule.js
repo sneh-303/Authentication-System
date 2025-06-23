@@ -1,9 +1,9 @@
 const cron = require("node-cron");
-const nodemailer = require("nodemailer");
+const sendMail = require('../controllers/emailController');
 const pool = require("../config/db");
 
 const UpdateEveryTime = () => {
-  cron.schedule("5 * * * *", async () => {
+  cron.schedule("0 23 * * *", async () => {
     try {
       // Check for new users
       const [result] = await pool.query("CALL get_new_registered_users()");
@@ -84,35 +84,11 @@ const AllData = () => {
       sendMail(" User Update Summary", html);
 
     } catch (err) {
-      console.error(" Error in  Cron Job:", err.message);
+      console.error(" Error in  Cron Jobs:", err.message);
     }
      })
 }
-// Mail function
-const sendMail = (subject, html) => {
-  const mailTransporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
 
-  const mailDetails = {
-    from: process.env.EMAIL,
-    to:  process.env.EMAIL_TO_SEND,
-    subject,
-    html,
-  };
-
-  mailTransporter.sendMail(mailDetails, (err, info) => {
-    if (err) {
-      console.log(" Email error:", err.message);
-    } else {
-      console.log(`Email sent: ${subject} at ${new Date().toLocaleTimeString()}`);
-    }
-  });
-};
 
 module.exports = {
   UpdateEveryTime,AllData

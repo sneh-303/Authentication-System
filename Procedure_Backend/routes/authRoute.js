@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router(); // Make sure this is BEFORE using `router`
 
 const authMiddleware = require('../middleware/auth');
-const { register, login, profile, userList, putUser, patchUser , deleteUser } = require('../controllers/authController');
+const { register, login, profile, userList, putUser, patchUser , deleteUser, verifyOtp, resendOtp } = require('../controllers/authController');
+// const { putUser, patchUser , deleteUser,  } = require('../controllers/authController');
 
 const { body, validationResult } = require('express-validator')
 const upload = require('../middleware/upload');
@@ -42,10 +43,11 @@ router.post('/login', loginValidation, validate, login);
 router.get('/profile', authMiddleware, profile);
 router.get('/userList', userList);
 
-router.put('/test-put/:serialNumber', putUser);
-router.patch('/test-patch/:serialNumber', patchUser);
-router.delete('/test-delete/:serialNumber', deleteUser);
-
+// router.put('/test-put/:serialNumber', putUser);
+// router.patch('/test-patch/:serialNumber', patchUser);
+// router.delete('/test-delete/:serialNumber', deleteUser);
+router.post('/verify-otp', verifyOtp);
+router.post('/resend-otp', resendOtp);
 
 
 module.exports = router;

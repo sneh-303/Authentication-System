@@ -83,12 +83,12 @@ const Register = () => {
         },
       });
 
-      toast.success("Registered successfully! Please login.");
+      toast.success("Registered successfully! Please verify your email.");
       setName("");
       setEmail("");
       setPassword("");
       setFiles(null);
-      navigate("/login");
+      navigate("/otpverify", {state: {email}});
     } catch (err) {
       if (err.response && err.response.data.errors) {
         err.response.data.errors.forEach((error) => toast.error(error.msg));

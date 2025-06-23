@@ -19,7 +19,7 @@ const Navbar = () => {
     { path: "/login", label: "Login" },
     { path: "/profile", label: "Profile" },
     { path: "/userList", label: "UserList" },
-    { path: "/httpmodule", label: "HttpModules" },
+    // { path: "/httpmodule", label: "HttpModules" },
   ];
 
   // Animate mobile menu open/close

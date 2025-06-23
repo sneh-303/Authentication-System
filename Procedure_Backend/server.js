@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cors({
   origin: [
     "https://authentication-system-mlg3l2hei-sneh-303s-projects.vercel.app/api/auth",
-    "http://localhost:5173"
+    "http://localhost:5173/api/auth"
   ],
   credentials: true
 }));

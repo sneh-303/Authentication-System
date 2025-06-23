@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   // baseURL: `${import.meta.env.VITE_BACKEND_URL}/api`,
-  baseURL: `https://authentication-system-2-mzwa.onrender.com/api`,
+  baseURL: `https://authentication-system-3-y5zg.onrender.com/api`,
 });
 
 // General GET request handler

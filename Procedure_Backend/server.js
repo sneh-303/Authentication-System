@@ -13,8 +13,8 @@ const { UpdateEveryTime, AllData } = require('./Cron-Schedule/CronSchedule');
 app.use(express.json());
 app.use(cors({
   origin: [
-    "https://authentication-system-mlg3l2hei-sneh-303s-projects.vercel.app/api/auth",
-    "http://localhost:5173/api/auth"
+    "https://authentication-system-mlg3l2hei-sneh-303s-projects.vercel.app",
+    "http://localhost:5173"
   ],
   credentials: true
 }));

@@ -9,7 +9,7 @@ const Home = () => {
     <GradientBackgroundLayout>
     {/* <div className="min-h-screen bg-gradient-to-r from-indigo-600 via-purple-700 to-pink-600 flex items-center justify-center px-4"> */}
       <div className="bg-white rounded-2xl shadow-2xl p-10 max-w-md w-full text-center">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800">Welcome to Our Platform</h1>
+        <h1 className="text-3xl font-bold mb-6 text-gray-800">Welcome to Authoryx</h1>
         <p className="text-gray-600 mb-8">Please choose an option to continue:</p>
         
         <div className="space-y-4">

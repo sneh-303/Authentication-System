@@ -14,7 +14,7 @@ const UserList = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
-  const USERS_PER_PAGE = 4;
+  const USERS_PER_PAGE = 10;
   // const SERVER_URL = "https://authentication-system-3-y5zg.onrender.com/api/auth/";
   //  const SERVER_URL = `${import.meta.env.VITE_BACKEND_URL}`;
   //  const SERVER_URL = `https://authentication-system-3-y5zg.onrender.com`;

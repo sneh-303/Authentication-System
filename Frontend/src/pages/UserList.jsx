@@ -1,7 +1,4 @@
 
-
-
-
 import { useEffect, useState, useRef } from "react";
 import toast from "react-hot-toast";
 import { fetchAllUsers } from "../api/axios";
@@ -10,7 +7,9 @@ import GradientBackgroundLayout from "../utils/GradientBackgroundLayout";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import gsap from "gsap";
-
+import * as XLSX from 'xlsx';
+import Button from '@mui/material/Button';
+import DownloadIcon from '@mui/icons-material/Download';
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
@@ -67,7 +66,23 @@ const UserList = () => {
   const handlePageChange = (event, value) => {
     setPage(value);
   };
+ const downloadExcel = () => {
+  if (users.length === 0) return;
 
+  const data = users.map((user, index) => ({
+    SrNo: index + 1,
+    Name: user.name,
+    Email: user.email,
+  }));
+
+  const worksheet = XLSX.utils.json_to_sheet(data);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Users");
+
+  XLSX.writeFile(workbook, "RegisteredUsers.xlsx");
+
+  toast.success("Excel file downloaded successfully!");
+};
   const logoutHandle = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -132,6 +147,26 @@ const UserList = () => {
                 </td>
               </tr>
             )}
+            <Button
+      variant="contained"
+      startIcon={<DownloadIcon />}
+      onClick={downloadExcel}
+      sx={{
+        mt: 4,
+        backgroundColor: "#6A5ACD",
+        '&:hover': {
+          backgroundColor: "#5A4AB5",
+        },
+        color: "white",
+        fontWeight: 600,
+        borderRadius: 2,
+        textTransform: "none",
+        paddingX: 3,
+        paddingY: 1.5,
+      }}
+    >
+      Download Excel
+    </Button>
           </tbody>
         </table>
 
@@ -159,6 +194,7 @@ const UserList = () => {
             }}
           />
         </Stack>
+
       </div>
     </GradientBackgroundLayout>
   );

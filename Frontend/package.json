@@ -29,6 +29,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "express-validator": "^7.2.1",
+    "file-saver": "^2.0.5",
     "flowbite": "^3.1.2",
     "flowbite-react": "^0.11.7",
     "framer-motion": "^12.18.1",
@@ -39,7 +40,8 @@
     "react-dom": "^19.1.0",
     "react-hot-toast": "^2.5.2",
     "react-icons": "^5.5.0",
-    "tailwind-variants": "^1.0.0"
+    "tailwind-variants": "^1.0.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

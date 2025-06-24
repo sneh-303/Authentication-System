@@ -38,7 +38,10 @@ const Profile = () => {
     }, expiryTime - Date.now());
 
     fetchProfile()
-      .then((res) => setProfile(res.data))
+      .then((res) => {setProfile(res.data)
+        console.log("Profile Picture URL:", profile.ProfilePicture);
+
+      })
 
       .catch((err) => {
         const errorMsg = err.response?.data?.msg || err.message || "";

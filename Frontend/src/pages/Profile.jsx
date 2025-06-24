@@ -11,7 +11,7 @@ const Profile = () => {
   // const SERVER_URL = "https://authentication-system-3-y5zg.onrender.com/api/auth/";
   // const SERVER_URL = `${import.meta.env.VITE_BACKEND_URL}`;
   // const SERVER_URL = `https://authentication-system-3-y5zg.onrender.com`;
-  const SERVER_URL = import.meta.env.VITE_BACKEND_URL;
+  // const SERVER_URL = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -79,7 +79,7 @@ const Profile = () => {
           <Stack direction="row" spacing={2}>
             <Avatar
               alt="profile"
-              src={`${SERVER_URL}${profile.ProfilePicture}`}
+              src={`${profile.ProfilePicture}`}
               sx={{
                 width: 100,
                 height: 100,

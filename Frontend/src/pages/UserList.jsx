@@ -19,7 +19,7 @@ const UserList = () => {
   // const SERVER_URL = "https://authentication-system-3-y5zg.onrender.com/api/auth/";
   //  const SERVER_URL = `${import.meta.env.VITE_BACKEND_URL}`;
   //  const SERVER_URL = `https://authentication-system-3-y5zg.onrender.com`;
-  const SERVER_URL = import.meta.env.VITE_BACKEND_URL;
+  // const SERVER_URL = import.meta.env.VITE_BACKEND_URL;
 
   const tableRef = useRef(null);
   const rowsRef = useRef([]);
@@ -111,7 +111,7 @@ const UserList = () => {
                   </td>
                   <td className="px-6 py-4">
                     <img
-                      src={`${SERVER_URL}${user.ProfilePicture}`}
+                      src={`${user.ProfilePicture}`}
                       alt="User"
                       className="w-10 h-10 rounded-full object-cover border border-gray-300"
                     />

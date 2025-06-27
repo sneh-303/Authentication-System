@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router(); // Make sure this is BEFORE using `router`
+const router = express.Router(); 
 
 const authMiddleware = require('../middleware/auth');
 const { register, login, profile, userList, putUser, patchUser , deleteUser } = require('../controllers/authController');
@@ -29,7 +29,7 @@ const registerValidation = [
     .matches(/[!@#$%^&*]/).withMessage('Password must include a special character'),
 ];
 
-// Validation for login route (optional, basic checks)
+// Validation for login route (basic checks)
 const loginValidation = [
   body('email').isEmail().withMessage('Please provide a valid email'),
   body('password').notEmpty().withMessage('Password is required'),

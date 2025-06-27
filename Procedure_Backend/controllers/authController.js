@@ -2,8 +2,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const sendMail = require('../controllers/emailController');
 const pool =require('../config/db')
-
-
+const XLSX = require("xlsx");
+const fs = require("fs");
+const upload = require('../middleware/ExcelUpload')
 // Register route
 exports.register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -188,6 +189,145 @@ exports.userList = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
+// exports.importUsers = async (req, res) => {
+//   if (!req.file) return res.status(400).json({ msg: "No file uploaded" });
+
+//   try {
+//     const workbook = XLSX.readFile(req.file.path);
+//     const sheetName = workbook.SheetNames[0];
+//     const sheet = workbook.Sheets[sheetName];
+//     const users = XLSX.utils.sheet_to_json(sheet);
+
+//     const importResults = [];
+
+//     for (let i = 0; i < users.length; i++) {
+//       const { Name, Email, Password, ProfilePicture } = users[i];
+
+//       const missingFields = [];
+//       if (!Name) missingFields.push("name");
+//       if (!Email) missingFields.push("email");
+//       if (!Password) missingFields.push("password");
+//       if (!ProfilePicture) missingFields.push("profilePicture");
+
+//       if (missingFields.length > 0) {
+//         importResults.push({
+//           Email: Email || "N/A",
+//           status: `Missing ${missingFields.join(", ")}`
+//         });
+//         continue;
+//       }
+
+//       try {
+//         const [existing] = await pool.query(
+//           "SELECT * FROM users WHERE email = ?",
+//           [Email]
+//         );
+
+//         if (existing.length > 0) {
+//           importResults.push({ Email, status: "Duplicate email" });
+//           continue;
+//         }
+
+//         const salt = await bcrypt.genSalt(10);
+//         const hashedPassword = await bcrypt.hash(Password, salt);
+
+//         const [result] = await pool.query("CALL RegisterUser(?, ?, ?, ?)", [
+//           Name,
+//           Email,
+//           hashedPassword,
+//           ProfilePicture,
+//         ]);
+
+//         const insertedUser = result?.[0]?.[0];
+//         if (!insertedUser) {
+//           importResults.push({ Email, status: "Failed to register" });
+//         } else {
+//           importResults.push({ Email, status: "Imported" });
+//         }
+//       } catch (error) {
+//         importResults.push({
+//           Email,
+//           status: error.sqlMessage || error.message
+//         });
+//       }
+//     }
+
+//     fs.unlinkSync(req.file.path);
+
+//     res.status(200).json({ msg: "Import completed", importResults });
+//   } catch (err) {
+//     console.error("Import error:", err);
+//     res.status(500).json({ msg: "Failed to import users" });
+//   }
+// };
+
+
+// BELOW IS OPTIMIZE WAY 
+exports.importUsers = async (req, res) => {
+  if (!req.file) return res.status(400).json({ msg: "No file uploaded" });
+
+  try {
+    const workbook = XLSX.readFile(req.file.path);
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const users = XLSX.utils.sheet_to_json(sheet);
+
+    const importResults = [];
+    const usersToInsert = [];
+
+    for (let i = 0; i < users.length; i++) {
+      const { Name, Email, Password, ProfilePicture } = users[i];
+
+      const missingFields = [];
+      if (!Name) missingFields.push("name");
+      if (!Email) missingFields.push("email");
+      if (!Password) missingFields.push("password");
+      if (!ProfilePicture) missingFields.push("profilePicture");
+
+      if (missingFields.length > 0) {
+        importResults.push({
+          Email: Email || "N/A",
+          status: `Missing ${missingFields.join(", ")}`
+        });
+        continue;
+      }
+
+      const [existing] = await pool.query("SELECT 1 FROM users WHERE email = ?", [Email]);
+      if (existing.length > 0) {
+        importResults.push({ Email, status: "Duplicate email" });
+        continue;
+      }
+
+      const hashedPassword = await bcrypt.hash(Password, 10);
+
+      usersToInsert.push([Name, Email, hashedPassword, ProfilePicture]);
+      importResults.push({ Email, status: "Queued for import" });
+    }
+
+    // Batch insert using a stored procedure (modify accordingly if needed)
+    for (const user of usersToInsert) {
+      try {
+        await pool.query("CALL RegisterUser(?, ?, ?, ?)", user);
+      } catch (error) {
+        importResults.push({
+          Email: user[1],
+          status: error.sqlMessage || error.message
+        });
+      }
+    }
+
+    fs.unlinkSync(req.file.path);
+
+    res.status(200).json({ msg: "Import completed", importResults });
+  } catch (err) {
+    console.error("Import error:", err);
+    res.status(500).json({ msg: "Failed to import users" });
+  }
+};
+
+
 
 // // PUT user
 // exports.putUser = async (req, res) => {

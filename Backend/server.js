@@ -6,9 +6,6 @@ const app = express();
 const cors = require('cors');
 const multer = require('multer');
 
-
-
-
 // middleware
 
 app.use(express.json());

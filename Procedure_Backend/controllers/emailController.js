@@ -11,7 +11,7 @@ const sendMail = (to,subject, html) => {
 
  const mailDetails = {
     from: process.env.EMAIL,
-    to, // ✅ Now it's passed as an argument
+    to, 
     subject,
     html,
   };

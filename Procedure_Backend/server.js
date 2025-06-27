@@ -13,7 +13,7 @@ const { UpdateEveryTime, AllData } = require('./Cron-Schedule/CronSchedule');
 app.use(express.json());
 app.use(cors({
   origin: [
-    "https://authentication-system-puce.vercel.app",
+    // "https://authentication-system-puce.vercel.app",
     "http://localhost:5173"
   ],
   credentials: true
@@ -21,7 +21,7 @@ app.use(cors({
 
 
 // Static route for image uploads
-// app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static("uploads"));
 
 // Auth routes
 app.use("/api/auth", require("./routes/authRoute"));

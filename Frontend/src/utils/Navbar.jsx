@@ -76,7 +76,7 @@ const Navbar = () => {
       <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         {/* Logo */}
         <div className="text-2xl font-bold text-purple-600">
-          <Link to="/">AUTHORYX</Link>
+          <Link to="/">AUTHEXIUM</Link>
         </div>
 
         {/* Desktop Nav */}

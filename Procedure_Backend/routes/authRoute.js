@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router(); // Make sure this is BEFORE using `router`
 
 const authMiddleware = require('../middleware/auth');
-const { register, login, profile, userList, putUser, patchUser , deleteUser, verifyOtp, resendOtp } = require('../controllers/authController');
+const { register, login, profile, userList, putUser, patchUser , deleteUser, verifyOtp, resendOtp, importUsers } = require('../controllers/authController');
 // const { putUser, patchUser , deleteUser,  } = require('../controllers/authController');
 
 const { body, validationResult } = require('express-validator')
 const upload = require('../middleware/upload');
+const excelUpload = require('../middleware/ExcelUpload');
 
 // Middleware to check validation result
 const validate = (req, res, next) => {
@@ -48,6 +49,8 @@ router.get('/userList', userList);
 // router.delete('/test-delete/:serialNumber', deleteUser);
 router.post('/verify-otp', verifyOtp);
 router.post('/resend-otp', resendOtp);
+
+router.post('/import-users', excelUpload.single('excelFile'), importUsers);
 
 
 module.exports = router;

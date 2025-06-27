@@ -1,49 +1,9 @@
-// const express = require("express");
-// const dotenv = require("dotenv");
-
-// const cors = require("cors");
-// const sequelize = require("./config/db");
-// dotenv.config();
-// const app = express();
-
-// // Middleware
-// app.use(express.json());
-// app.use(cors({ origin: "http://localhost:5173" }));
-
-// // Static route for image uploads
-// app.use("/uploads", express.static("uploads"));
-
-// // Auth routes
-// app.use("/api/auth", require("./routes/authRoute"));
-
-// // DB test connection
-
-// sequelize.authenticate().then(() => {
-//     console.log("Connection has been established successfully.");
-//   })
-
-//   .catch((error) => {
-//     console.error("Unable to connect to the database: ", error);
-//   });
-
-// sequelize.sync().then(() => {
-//     console.log("Table created successfully!");
-//   })
-//   .catch((error) => {
-//     console.error("Unable to create table : ", error);
-//   });
-// // Start server
-// const PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-
-
-
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const sequelize = require("./config/db");
-const User = require('./models/User')
-// Load environment variables
+// const User = require('./models/User')
+
 dotenv.config();
 
 const app = express();

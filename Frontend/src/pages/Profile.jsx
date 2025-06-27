@@ -9,7 +9,7 @@ const Profile = () => {
   const [profile, setProfile] = useState(null);
   const navigate = useNavigate();
   // const SERVER_URL = "https://authentication-system-3-y5zg.onrender.com/api/auth/";
-  // const SERVER_URL = `${import.meta.env.VITE_BACKEND_URL}`;
+  const SERVER_URL = `${import.meta.env.VITE_BACKEND_URL}`;
   // const SERVER_URL = `https://authentication-system-3-y5zg.onrender.com`;
   // const SERVER_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -82,7 +82,7 @@ const Profile = () => {
           <Stack direction="row" spacing={2}>
             <Avatar
               alt="profile"
-              src={`${profile.ProfilePicture}`}
+              src={`${SERVER_URL}${profile.ProfilePicture}`}
               sx={{
                 width: 100,
                 height: 100,
